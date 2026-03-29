@@ -13,4 +13,6 @@ Projeto de uma landing page responsiva para delivery.
 - CSS
 - JavaScript
 
-## 🌐 Acesse o projeto
+## 🌐 Acesse o projeto:
+
+https://tons2802.github.io/landing-page-salgados/

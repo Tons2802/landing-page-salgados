@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <titleS>Delivery de Salgados</titleS>
+  <title>Império dos Salgados | Delivery</title>
+  <style>
+    :root {
+      --bg: #fff8f0;
+      --surface: #ffffff;
+      --surface-2: #fff1e2;
+      --text: #2a1f16;
+      --muted: #6b5b4e;
+      --primary: #e85d04;
+      --primary-dark: #c94c00;
+      --accent: #ffba08;
+      --success: #25d366;
+      --border: #f1dcc9;
+      --shadow: 0 12px 30px rgba(77, 46, 19, 0.12);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fff9f3 0%, #fff3e8 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 24px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 248, 240, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 93, 4, 0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 36px 0 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .info-card,
+    .menu-card,
+    .cart-card,
+    .delivery-box,
+    .promo-card,
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 28px;
+      background: radial-gradient(circle at top right, rgba(255,186,8,0.18), transparent 28%), var(--surface);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--primary-dark);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.06;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px 0 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .highlight-item {
+      background: #fffaf5;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .highlight-item strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.98rem;
+    }
+
+    .highlight-item span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-image {
+      min-height: 250px;
+      background:
+        linear-gradient(rgba(42,31,22,0.08), rgba(42,31,22,0.08)),
+        url('https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .info-content {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .info-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-row span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-row strong {
+      font-size: 0.95rem;
+      text-align: right;
+    }
+
+    section {
+      padding: 18px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 4px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 55ch;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .promo-card {
+      padding: 20px;
+      background: linear-gradient(180deg, #fff8ee, #fff2e1);
+    }
+
+    .promo-card small {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .promo-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .promo-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .menu-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .menu-card {
+      padding: 18px;
+    }
+
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      background: #fff7ef;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .product-card {
+      background: #fffaf5;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .product-image {
+      aspect-ratio: 16 / 10;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .product-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .product-body h3 {
+      font-size: 1.05rem;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      min-height: 42px;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .product-footer strong {
+      font-size: 1.06rem;
+    }
+
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .cart-card {
+      padding: 18px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .cart-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .cart-title h3 {
+      font-size: 1.25rem;
+    }
+
+    .cart-badge {
+      min-width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #fff1e2;
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0 8px;
+    }
+
+    .cart-empty {
+      color: var(--muted);
+      background: #fffaf5;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 0.95rem;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .cart-item {
+      background: #fffaf5;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .cart-item-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .cart-item-header strong {
+      font-size: 0.98rem;
+    }
+
+    .cart-item small {
+      color: var(--muted);
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .qty-box {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .qty-box button {
+      width: 34px;
+      height: 34px;
+      background: white;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .qty-box span {
+      width: 36px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .remove-btn {
+      background: transparent;
+      color: #b74a4a;
+      font-weight: 700;
+    }
+
+    .cart-summary {
+      display: grid;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .summary-row.total {
+      color: var(--text);
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .customer-note {
+      margin-top: 12px;
+    }
+
+    .customer-note label,
+    .delivery-fields label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.94rem;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      padding: 12px 13px;
+      font: inherit;
+      color: var(--text);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 88px;
+    }
+
+    .cart-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn-whatsapp {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-whatsapp:hover {
+      filter: brightness(0.95);
+    }
+
+    .btn-clear {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .delivery-box {
+      padding: 18px;
+    }
+
+    .delivery-box h3 {
+      margin-bottom: 10px;
+      font-size: 1.08rem;
+    }
+
+    .delivery-box p,
+    .delivery-box li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .delivery-box ul {
+      margin-left: 18px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+    }
+
+    .footer-card {
+      padding: 18px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-card strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .mobile-cart-toggle {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      min-height: 54px;
+      padding: 0 18px;
+      gap: 10px;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    .mobile-cart-panel {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid,
+      .menu-layout,
+      .promo-grid,
+      .delivery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cart-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-card,
+      .info-content,
+      .menu-card,
+      .cart-card,
+      .promo-card,
+      .delivery-box,
+      .footer-card {
+        padding: 16px;
+      }
+
+      .highlights,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .cart-desktop {
+        display: none;
+      }
+
+      .mobile-cart-toggle {
+        display: inline-flex;
+      }
+
+      .mobile-cart-panel {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 80;
+        padding: 12px;
+        align-items: end;
+      }
+
+      .mobile-cart-panel.active {
+        display: flex;
+      }
+
+      .mobile-cart-sheet {
+        width: 100%;
+        max-height: 88vh;
+        overflow: auto;
+        background: white;
+        border-radius: 22px 22px 0 0;
+        padding: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .mobile-sheet-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .close-sheet {
+        background: #fff1e2;
+        color: var(--primary-dark);
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        font-size: 1.2rem;
+      }
+
+      .footer-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#inicio" class="brand">
+        <span class="brand-badge">🥟</span>
+        <span>Império dos Salgados</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#promocoes">Promoções</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#entrega">Entrega</a>
+        <a href="#pedido">Seu pedido</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <span class="tag">🔥 Salgados fresquinhos todos os dias</span>
+          <h1>Peça seus salgados favoritos sem complicação.</h1>
+          <p>
+            Monte seu pedido online, escolha seus itens e finalize tudo pelo WhatsApp.
+            Simples, rápido e funcionando perfeitamente no celular.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#cardapio" class="btn btn-primary">Ver cardápio</a>
+            <a href="#pedido" class="btn btn-secondary">Montar pedido</a>
+          </div>
+
+          <div class="highlights">
+            <div class="highlight-item">
+              <strong>📦 Delivery rápido</strong>
+              <span>Entregamos em bairros selecionados com taxa fixa.</span>
+            </div>
+            <div class="highlight-item">
+              <strong>💬 Pedido pelo WhatsApp</strong>
+              <span>Sem login, sem cadastro e sem enrolação.</span>
+            </div>
+            <div class="highlight-item">
+              <strong>⭐ Cardápio responsivo</strong>
+              <span>Perfeito para clientes que chegam pelo Instagram.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="hero-image"></div>
+          <div class="info-content">
+            <div class="info-row">
+              <span>Horário</span>
+              <strong>Seg a Sáb · 17h às 23h</strong>
+            </div>
+            <div class="info-row">
+              <span>Entrega</span>
+              <strong>R$ 6,00 a R$ 10,00</strong>
+            </div>
+            <div class="info-row">
+              <span>Pedido mínimo</span>
+              <strong>R$ 15,00</strong>
+            </div>
+            <div class="info-row">
+              <span>WhatsApp</span>
+              <strong>(11) 99999-0000</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promocoes">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Promoções do dia</h2>
+            <p>Combos pensados para vender mais e aumentar o ticket médio do delivery.</p>
+          </div>
+        </div>
+
+        <div class="promo-grid">
+          <article class="promo-card">
+            <small>COMBO MAIS PEDIDO</small>
+            <h3>10 Mini Salgados + Refrigerante Lata</h3>
+            <p>Ideal para lanche da tarde ou pedido rápido no trabalho.</p>
+            <div class="price">R$ 18,90</div>
+          </article>
+
+          <article class="promo-card">
+            <small>COMBO FAMÍLIA</small>
+            <h3>25 Salgados Variados + Refri 2L</h3>
+            <p>Perfeito para dividir em casa sem gastar muito.</p>
+            <div class="price">R$ 42,90</div>
+          </article>
+
+          <article class="promo-card">
+            <small>COMBO FESTA</small>
+            <h3>50 Salgados + 2 Molhos Especiais</h3>
+            <p>Ótima opção para reunião, aniversário ou confraternização.</p>
+            <div class="price">R$ 74,90</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cardapio">
+      <div class="container menu-layout">
+        <div class="menu-card">
+          <div class="section-head">
+            <div>
+              <h2>Monte seu pedido</h2>
+              <p>Adicione os itens ao carrinho e finalize pelo WhatsApp com a mensagem pronta.</p>
+            </div>
+          </div>
+
+          <div class="category-tabs" id="categoryTabs"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+
+        <aside class="cart-card cart-desktop" id="pedido">
+          <div id="cartDesktop"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="entrega">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Informações de entrega</h2>
+            <p>Essas áreas passam confiança e ajudam o cliente a concluir o pedido mais rápido.</p>
+          </div>
+        </div>
+
+        <div class="delivery-grid">
+          <div class="delivery-box">
+            <h3>📍 Bairros atendidos</h3>
+            <ul>
+              <li>Centro</li>
+              <li>Vila Luzita</li>
+              <li>Jardim Alvorada</li>
+              <li>Parque das Nações</li>
+            </ul>
+          </div>
+
+          <div class="delivery-box">
+            <h3>⏰ Horário</h3>
+            <p>Pedidos aceitos de segunda a sábado, das 17h às 23h. Domingo sob consulta.</p>
+          </div>
+
+          <div class="delivery-box">
+            <h3>💳 Pagamento</h3>
+            <p>Aceitamos Pix, dinheiro e cartão na entrega. Informe no pedido como deseja pagar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-card">
+        <div>
+          <strong>Império dos Salgados</strong>
+          <span>Landing page de delivery com mini carrinho e finalização por WhatsApp.</span>
+        </div>
+        <a href="#cardapio" class="btn btn-primary">Fazer meu pedido</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="mobile-cart-toggle" id="mobileCartButton" type="button">
+    <span>🛒 Ver pedido</span>
+    <span id="mobileCartCount">0</span>
+  </button>
+
+  <div class="mobile-cart-panel" id="mobileCartPanel">
+    <div class="mobile-cart-sheet">
+      <div class="mobile-sheet-head">
+        <h3>Seu pedido</h3>
+        <button class="close-sheet" id="closeSheet" type="button">×</button>
+      </div>
+      <div id="cartMobile"></div>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = '5511999990000';
+
+    const products = [
+      {
+        id: 1,
+        category: 'Fritos',
+        name: 'Coxinha Tradicional',
+        description: 'Massa leve e recheio cremoso de frango temperado.',
+        price: 7.5,
+        image: 'https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 2,
+        category: 'Fritos',
+        name: 'Kibe Recheado',
+        description: 'Casquinha crocante com recheio de catupiry.',
+        price: 8.0,
+        image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 3,
+        category: 'Fritos',
+        name: 'Bolinha de Queijo',
+        description: 'Porção com unidades douradas e recheio puxando queijo.',
+        price: 9.5,
+        image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 4,
+        category: 'Assados',
+        name: 'Esfiha de Carne',
+        description: 'Massa macia com recheio bem temperado.',
+        price: 6.5,
+        image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 5,
+        category: 'Assados',
+        name: 'Enroladinho de Salsicha',
+        description: 'Clássico que vende bem no delivery e no balcão.',
+        price: 6.0,
+        image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 6,
+        category: 'Assados',
+        name: 'Empada de Frango',
+        description: 'Massa amanteigada com recheio úmido e saboroso.',
+        price: 8.5,
+        image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 7,
+        category: 'Combos',
+        name: 'Combo Lanche Rápido',
+        description: '5 salgados variados + 1 refrigerante lata.',
+        price: 16.9,
+        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 8,
+        category: 'Combos',
+        name: 'Combo Família',
+        description: '20 salgados variados + refrigerante 2L.',
+        price: 38.9,
+        image: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 9,
+        category: 'Bebidas',
+        name: 'Refrigerante 2L',
+        description: 'Escolha o sabor após finalizar o pedido.',
+        price: 12.0,
+        image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 10,
+        category: 'Bebidas',
+        name: 'Suco Natural 500ml',
+        description: 'Consulte sabores disponíveis no dia.',
+        price: 7.0,
+        image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=80'
+      }
+    ];
+
+    const deliveryFee = 6;
+    let activeCategory = 'Todos';
+    let cart = [];
+
+    const categoryTabs = document.getElementById('categoryTabs');
+    const productGrid = document.getElementById('productGrid');
+    const cartDesktop = document.getElementById('cartDesktop');
+    const cartMobile = document.getElementById('cartMobile');
+    const mobileCartButton = document.getElementById('mobileCartButton');
+    const mobileCartPanel = document.getElementById('mobileCartPanel');
+    const closeSheet = document.getElementById('closeSheet');
+    const mobileCartCount = document.getElementById('mobileCartCount');
+
+    function formatPrice(value) {
+      return value.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+    function getCategories() {
+      return ['Todos', ...new Set(products.map(product => product.category))];
+    }
+
+    function renderTabs() {
+      const categories = getCategories();
+      categoryTabs.innerHTML = categories.map(category => `
+        <button
+          type="button"
+          class="tab-btn ${category === activeCategory ? 'active' : ''}"
+          onclick="setCategory('${category}')"
+        >
+          ${category}
+        </button>
+      `).join('');
+    }
+
+    function setCategory(category) {
+      activeCategory = category;
+      renderTabs();
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const filteredProducts = activeCategory === 'Todos'
+        ? products
+        : products.filter(product => product.category === activeCategory);
+
+      productGrid.innerHTML = filteredProducts.map(product => `
+        <article class="product-card">
+          <div class="product-image" style="background-image: url('${product.image}')"></div>
+          <div class="product-body">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <div class="product-footer">
+              <strong>${formatPrice(product.price)}</strong>
+              <button type="button" class="add-btn" onclick="addToCart(${product.id})">Adicionar</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function addToCart(productId) {
+      const existingItem = cart.find(item => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        const product = products.find(item => item.id === productId);
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      renderCart();
+    }
+
+    function increaseQuantity(productId) {
+      const item = cart.find(product => product.id === productId);
+      if (!item) return;
+      item.quantity += 1;
+      renderCart();
+    }
+
+    function decreaseQuantity(productId) {
+      const item = cart.find(product => product.id === productId);
+      if (!item) return;
+
+      if (item.quantity > 1) {
+        item.quantity -= 1;
+      } else {
+        cart = cart.filter(product => product.id !== productId);
+      }
+
+      renderCart();
+    }
+
+    function removeItem(productId) {
+      cart = cart.filter(product => product.id !== productId);
+      renderCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      renderCart();
+    }
+
+    function getSubtotal() {
+      return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    }
+
+    function getTotalItems() {
+      return cart.reduce((acc, item) => acc + item.quantity, 0);
+    }
+
+    function renderCartContent() {
+      const subtotal = getSubtotal();
+      const total = cart.length ? subtotal + deliveryFee : 0;
+      const totalItems = getTotalItems();
+
+      return `
+        <div class="cart-title">
+          <h3>Seu pedido</h3>
+          <span class="cart-badge">${totalItems}</span>
+        </div>
+
+        ${cart.length === 0 ? `
+          <div class="cart-empty">
+            Seu carrinho está vazio. Adicione itens do cardápio para montar o pedido.
+          </div>
+        ` : `
+          <div class="cart-items">
+            ${cart.map(item => `
+              <div class="cart-item">
+                <div class="cart-item-header">
+                  <div>
+                    <strong>${item.name}</strong>
+                    <small>${formatPrice(item.price)} cada</small>
+                  </div>
+                  <button class="remove-btn" type="button" onclick="removeItem(${item.id})">Remover</button>
+                </div>
+
+                <div class="qty-controls">
+                  <div class="qty-box">
+                    <button type="button" onclick="decreaseQuantity(${item.id})">−</button>
+                    <span>${item.quantity}</span>
+                    <button type="button" onclick="increaseQuantity(${item.id})">+</button>
+                  </div>
+                  <strong>${formatPrice(item.quantity * item.price)}</strong>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `}
+
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong>${formatPrice(subtotal)}</strong>
+          </div>
+          <div class="summary-row">
+            <span>Taxa de entrega</span>
+            <strong>${cart.length ? formatPrice(deliveryFee) : '—'}</strong>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <strong>${formatPrice(total)}</strong>
+          </div>
+        </div>
+
+        <div class="delivery-fields" style="margin-top: 14px; display: grid; gap: 12px;">
+          <div>
+            <label for="customerName">Seu nome</label>
+            <input id="customerName" type="text" placeholder="Digite seu nome" />
+          </div>
+          <div>
+            <label for="customerAddress">Endereço de entrega</label>
+            <input id="customerAddress" type="text" placeholder="Rua, número e bairro" />
+          </div>
+          <div>
+            <label for="paymentMethod">Forma de pagamento</label>
+            <select id="paymentMethod">
+              <option value="">Selecione</option>
+              <option>Pix</option>
+              <option>Dinheiro</option>
+              <option>Cartão na entrega</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="customer-note">
+          <label for="customerNote">Observações do pedido</label>
+          <textarea id="customerNote" placeholder="Ex: sem cebola, trocar sabor do refri, entregar no portão..."></textarea>
+        </div>
+
+        <div class="cart-actions">
+          <button type="button" class="btn btn-whatsapp" onclick="finishOrder()">Finalizar no WhatsApp</button>
+          <button type="button" class="btn btn-clear" onclick="clearCart()">Limpar pedido</button>
+        </div>
+      `;
+    }
+
+    function syncInputs(sourceRoot, targetRoot) {
+      const sourceName = sourceRoot.querySelector('#customerName');
+      const sourceAddress = sourceRoot.querySelector('#customerAddress');
+      const sourcePayment = sourceRoot.querySelector('#paymentMethod');
+      const sourceNote = sourceRoot.querySelector('#customerNote');
+
+      const targetName = targetRoot.querySelector('#customerName');
+      const targetAddress = targetRoot.querySelector('#customerAddress');
+      const targetPayment = targetRoot.querySelector('#paymentMethod');
+      const targetNote = targetRoot.querySelector('#customerNote');
+
+      if (sourceName && targetName) targetName.value = sourceName.value;
+      if (sourceAddress && targetAddress) targetAddress.value = sourceAddress.value;
+      if (sourcePayment && targetPayment) targetPayment.value = sourcePayment.value;
+      if (sourceNote && targetNote) targetNote.value = sourceNote.value;
+    }
+
+    function renderCart() {
+      cartDesktop.innerHTML = renderCartContent();
+      cartMobile.innerHTML = renderCartContent();
+      mobileCartCount.textContent = getTotalItems();
+
+      const desktopRoot = cartDesktop;
+      const mobileRoot = cartMobile;
+
+      [desktopRoot, mobileRoot].forEach((root, index) => {
+        const otherRoot = index === 0 ? mobileRoot : desktopRoot;
+        ['customerName', 'customerAddress', 'paymentMethod', 'customerNote'].forEach(id => {
+          const element = root.querySelector(`#${id}`);
+          if (element) {
+            element.addEventListener('input', () => syncInputs(root, otherRoot));
+            element.addEventListener('change', () => syncInputs(root, otherRoot));
+          }
+        });
+      });
+    }
+
+    function getFormValues() {
+      const desktopName = cartDesktop.querySelector('#customerName');
+      const desktopAddress = cartDesktop.querySelector('#customerAddress');
+      const desktopPayment = cartDesktop.querySelector('#paymentMethod');
+      const desktopNote = cartDesktop.querySelector('#customerNote');
+
+      const mobileName = cartMobile.querySelector('#customerName');
+      const mobileAddress = cartMobile.querySelector('#customerAddress');
+      const mobilePayment = cartMobile.querySelector('#paymentMethod');
+      const mobileNote = cartMobile.querySelector('#customerNote');
+
+      return {
+        name: desktopName?.value || mobileName?.value || '',
+        address: desktopAddress?.value || mobileAddress?.value || '',
+        payment: desktopPayment?.value || mobilePayment?.value || '',
+        note: desktopNote?.value || mobileNote?.value || ''
+      };
+    }
+
+    function finishOrder() {
+      if (!cart.length) {
+        alert('Seu carrinho está vazio. Adicione pelo menos um item antes de finalizar.');
+        return;
+      }
+
+      const { name, address, payment, note } = getFormValues();
+      const subtotal = getSubtotal();
+      const total = subtotal + deliveryFee;
+
+      const itemsText = cart.map(item => `• ${item.quantity}x ${item.name} — ${formatPrice(item.quantity * item.price)}`).join('\n');
+
+      const message = [
+        'Olá! Quero fazer um pedido:',
+        '',
+        itemsText,
+        '',
+        `Subtotal: ${formatPrice(subtotal)}`,
+        `Taxa de entrega: ${formatPrice(deliveryFee)}`,
+        `Total: ${formatPrice(total)}`,
+        '',
+        `Nome: ${name || 'Não informado'}`,
+        `Endereço: ${address || 'Não informado'}`,
+        `Pagamento: ${payment || 'Não informado'}`,
+        `Observações: ${note || 'Nenhuma'}`
+      ].join('\n');
+
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    mobileCartButton.addEventListener('click', () => {
+      mobileCartPanel.classList.add('active');
+    });
+
+    closeSheet.addEventListener('click', () => {
+      mobileCartPanel.classList.remove('active');
+    });
+
+    mobileCartPanel.addEventListener('click', (event) => {
+      if (event.target === mobileCartPanel) {
+        mobileCartPanel.classList.remove('active');
+      }
+    });
+
+    renderTabs();
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
